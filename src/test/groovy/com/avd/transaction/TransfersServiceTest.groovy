@@ -1,6 +1,8 @@
 package com.avd.transaction
 
 import com.avd.data.AccountRepository
+import com.avd.exception.ItemNotFoundException
+import com.avd.exception.NotEnoughFundsException
 import com.avd.model.Account
 import spock.lang.Specification
 import spock.util.concurrent.AsyncConditions
@@ -86,5 +88,21 @@ class TransfersServiceTest extends Specification {
         then:
         async.await()
         assert transfersService.totalBalance() == new BigDecimal(500)
+    }
+
+    def "ItemNotFountException"() {
+        when:
+        transfersService.transfer(1, 20, new BigDecimal(20))
+
+        then:
+        thrown ItemNotFoundException
+    }
+
+    def "NotEnoughFundsException"() {
+        when:
+        transfersService.transfer(1, 2, new BigDecimal(2000))
+
+        then:
+        thrown NotEnoughFundsException
     }
 }
