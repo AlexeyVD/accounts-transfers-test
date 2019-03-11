@@ -1,5 +1,6 @@
 # accounts-transfers-test
 Simple api for money transfers between accounts
+The project is designed using Kotlin language, Vertx framework and Spock framework for tests
 
 ## API End Points
 All methods require Content-Type = "application/json"
